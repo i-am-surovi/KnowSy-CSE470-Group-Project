@@ -13,6 +13,10 @@
 
 # Install Form    
 - npm install @clerk/clerk-react
+
+# ReUse After Cloning     
+- npm install react-router-dom react-youtube uniqid quill humanize-duration rc-progress react-simple-star-rating      
+- npm install
    
 
 
