@@ -9,6 +9,7 @@ const CourseDetails = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
   const [openSections, setOpenSections] = useState({});
+  const [isEnrolled, setIsEnrolled] = useState({});
 
   const {
     allCourses,
