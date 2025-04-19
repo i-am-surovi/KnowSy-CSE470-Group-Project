@@ -33,6 +33,12 @@
 - git rebase origin/main       
 - git push origin feature/feature-name
 
+### In-case of update any branch code  
+- git checkout feature/feature-name       
+- git add .         
+- git commit -m "Updated something in the feature successfully"      
+- git push origin feature/feature-name
+
 # After Other's Update use this command       
 - git fetch origin       
 - git checkout main      
