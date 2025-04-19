@@ -19,12 +19,23 @@
         font-size: 48px;
         line-height: 56px;
     }
+
+    .text-course-details-heading-large {
+        font-size: 26px;
+        line-height: 36px;
+    }
+
 }
 
 /* Other class adjustments if necessary for different screen sizes */
 .md\:text-home-heading-small {
     font-size: 28px;
     line-height: 34px;
+}
+
+.md\:text-course-details-heading-large {
+    font-size: 36px;
+    line-height: 44px;
 }
 
 .md\:text-home-heading-large {
@@ -46,6 +57,42 @@
 *{
     font-family: Outfit;
 }
+
+/* ===== Base Styles ===== */
+html {
+    scroll-behavior: smooth;
+  }
+
+/* ===== Scrollbar Hidden ===== */
+::-webkit-scrollbar {
+    display: none;
+  }
+
+/* Custom max width class */
+.max-w-course-card {
+    max-width: 424px;
+  }
+  
+  /* Custom box shadow class */
+  .shadow-custom-card {
+    box-shadow: 0px 4px 15px 2px rgba(0, 0, 0, 0.1);
+  }
+
+
+
+.rich-text { font-size: 15px; color: #7A7B7D; }
+.rich-text p { margin-bottom: 16px; }
+.rich-text h1 { font-size: 36px; font-weight: 800; color: #252525; margin: 32px 0; }
+.rich-text h2 { font-size: 22px; font-weight: 700; color: #252525; margin: 24px 0; }
+.rich-text h3 { font-size: 18px; font-weight: 600; color: #333333; margin: 20px 0; }
+.rich-text h4 { font-size: 16px; font-weight: 500; color: #444444; margin: 16px 0; }
+.rich-text h5 { font-size: 14px; font-weight: 400; color: #555555; margin: 12px 0; }
+.rich-text h6 { font-size: 12px; font-weight: 400; color: #666666; margin: 8px 0; }
+.rich-text strong { font-weight: 700; }
+.rich-text ol { margin-left: 30px; list-style-type: decimal; }
+.rich-text ul { margin-left: 30px; list-style-type: disc; } I
+.rich-text li { margin-bottom: 8px; }
+
 
 
 
