@@ -24,14 +24,14 @@
 - cd KnowSy-CSE470-Group-Project
 
 ### First Create a Brunch 
-- git checkout -b feature/feature-name
+- git checkout -b feature-name
 
 ### Then after working on codes     
 - git add .      
 - git commit -m "done something"      
 - git fetch origin    
 - git rebase origin/main       
-- git push origin feature/feature-name
+- git push origin feature-name
 
 ### In-case of update any branch code  
 - git checkout feature/feature-name       
