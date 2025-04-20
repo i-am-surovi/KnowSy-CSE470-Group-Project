@@ -44,4 +44,15 @@
 - git checkout main      
 - git pull origin main
 
+# After Merging code      
+- git add .      
+- git commit -m "done something"        
+- git pull --rebase origin main      
+- git push origin main
+
+# In Case of facing problem       
+- git remote -v    
+- git fetch origin      
+- git checkout main     
+- git reset --hard origin/main
        
