@@ -1,16 +1,20 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
 import Navbar from '../../components/educator/Navbar'
+import { Outlet } from 'react-router-dom'
+import Sidebar from '../../components/educator/Sidebar'
 
 const Educator = () => {
   return (
     <div className='text-default min-h-screen bg-white'>
-      <Navbar/>
-      <h1></h1>
-      <div>
-        {<Outlet/>}
+      <Navbar />
+      <div className='flex'>
+        <Sidebar />
+        <div className='flex-1'>
+          {<Outlet />}
+          </div>
       </div>
     </div>
+
   )
 }
 
