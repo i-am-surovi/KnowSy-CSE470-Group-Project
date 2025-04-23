@@ -46,16 +46,31 @@ const AddCourse = () => {
       }
 
   };
-
-
-  useEffect(() => {
-    //initiate quill only once
-    if (!quillRef.current && editorRef.current) {
-      quillRef.current = new Quill(editorRef.current, {
-        theme: "snow",
-      });
+  
+  const handleLecture = (action, chapterId, lectureIndex) => {
+    if (action === "add") {
+      setCurrentChapterId(chapterId);
+      setShowPopup(true);
+    } else if (action === "remove") {
+      setChapters(
+        chapters.map((chapter) => {
+          if (chapter.chapterId === chapterId) {
+            chapter.chapterContent.splice(lectureIndex, 1);
+          }
+          return chapter;
+        })
+      );
     }
-  }, []);
+  };
+
+useEffect(() => {
+  //initiate quill only once
+  if (!quillRef.current && editorRef.current) {
+    quillRef.current = new Quill(editorRef.current, {
+      theme: "snow",
+    });
+  }
+}, []);
 
   return (
     <div className="h-screen overflow-scroll flex flex-col items-start justify-between md:p-8 md:pb-0 p-4 pt-8 pb-0">
@@ -79,7 +94,7 @@ const AddCourse = () => {
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex flex-col gap-1">
             <p>Course Price</p>
-            <input
+            <inputc
               onChange={(e) => setCoursePrice(e.target.value)}
               value={coursePrice}
               type="number"
@@ -149,10 +164,10 @@ const AddCourse = () => {
                         </a> - {lecture.isPreviewFree ? "Free Preview" : "Paid"}
                         
                       </span>
-                      <img src={assets.cross_icon} alt="" className="cursor-pointer" />
+                      <img src={assets.cross_icon} alt="" onClick={()=> handleLecture('remove', chapter.chapterId, lectureIndex)} className="cursor-pointer" />
                     </div>
                   ))}
-                  <div className="inline-flex bg-gray-100 rounded cursor-pointer mt-2">
+                  <div className="inline-flex bg-gray-100 rounded cursor-pointer mt-2" onClick={()=> handleLecture('add', chapter.chapterId) }>
                     + Add Lecture
                   </div>
 
