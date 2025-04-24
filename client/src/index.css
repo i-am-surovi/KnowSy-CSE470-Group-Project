@@ -93,6 +93,13 @@ html {
 .rich-text ul { margin-left: 30px; list-style-type: disc; } I
 .rich-text li { margin-bottom: 8px; }
 
-
-
-
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(31, 41, 55, 0.5); /* bg-gray-800 with 50% opacity */
+    z-index: 1000; /* optional: ensures it appears above other elements */
+  }
+  

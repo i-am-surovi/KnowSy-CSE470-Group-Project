@@ -8,16 +8,38 @@
 - Design Progress-bar : **rc-progress**     
 - Add Routing **react-simple-star-rating**  
 
+# Server Setup     
+**npm init -y** 
+**npm install**   
+- Create Backend : **express** 
+- Restart Backend Server after changes : **nodemon**  
+- Use Environment Variables (cloudinary, mongodb) : **dotenv**   
+- Connect Backend with any other domain: **cors**
+- Store images : **cloudinary**    
+- Connect MongoDB Database : **mongoose** 
+- Upload any image : **multer**      
+- Add Payment gateway: **stripe**      
+- Webhooks for sending real-time info: **svix**
+
+
 # Tailwind Setup      
 - npm install tailwindcss @tailwindcss/vite
 
 # Install Form    
-- npm install @clerk/clerk-react
+- npm install @clerk/clerk-react  [For Frontend]
+- npm install @clerk/express  [For Backend]
 
-# ReUse After Cloning     
+# Server Setup     
+- mongoose
+
+# ReUse After Cloning    
+## For Client 
 - npm install react-router-dom react-youtube uniqid quill humanize-duration rc-progress react-simple-star-rating      
 - npm install    
-- npm run dev
+- npm run dev        
+## For Server         
+- npm install express nodemon dotenv cors cloudinary mongoose multer stripe svix@1.42.0 @clerk/express         
+- npm run server
    
 # For Push to the repository       
 - git clone https://github.com/i-am-surovi/KnowSy-CSE470-Group-Project.git      
@@ -55,4 +77,4 @@
 - git fetch origin      
 - git checkout main     
 - git reset --hard origin/main
-       
+
