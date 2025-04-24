@@ -29,9 +29,6 @@
 - npm install @clerk/clerk-react  [For Frontend]
 - npm install @clerk/express  [For Backend]
 
-# Server Setup     
-- mongoose
-
 # ReUse After Cloning    
 ## For Client 
 - npm install react-router-dom react-youtube uniqid quill humanize-duration rc-progress react-simple-star-rating      
