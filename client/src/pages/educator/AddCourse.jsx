@@ -122,7 +122,7 @@ useEffect(() => {
         <div className="flex items-center justify-between flex-wrap">
           <div className="flex flex-col gap-1">
             <p>Course Price</p>
-            <inputc
+            <input
               onChange={(e) => setCoursePrice(e.target.value)}
               value={coursePrice}
               type="number"
