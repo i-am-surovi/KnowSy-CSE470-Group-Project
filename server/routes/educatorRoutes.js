@@ -1,19 +1,9 @@
-import mongoose from "mongoose";
+import express from "express";
+import { updateRoleToEducator } from "../controllers/educatorController.js";
 
-const userSchema = new mongoose.Schema(
-    {
-        _id: {type: String, required: true},
-        name: {type: String, required: true},
-        email: {type: String, required: true},
-        imageUrl: {type: String, required: true},
-        enrolledCourses: [
-            {
-                type: mongoose.Schema.Types.ObjectId, 
-                ref: 'Course'    
-            }
-        ],
-    }, {timestamps: true});
+const educatorRouter = express.Router();
 
-    const User = mongoose.model('User', userSchema);
+// Add Educator Router
+educatorRouter.get("/updated-role", updateRoleToEducator);
 
-    export default User
+export default educatorRouter;
