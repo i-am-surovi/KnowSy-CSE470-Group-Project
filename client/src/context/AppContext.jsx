@@ -4,23 +4,23 @@ import { Form, useNavigate } from "react-router-dom";
 import humanizeDuration from 'humanize-duration'
 import {useAuth, useUser} from "@clerk/clerk-react";
 
-export const AppContext = createContext();
+export const AppContext = createContext()
 
 export const AppContextProvider = (props) => {
-  const currency = import.meta.env.VITE_CURRENCY;
-  const navigate = useNavigate(); 
+  const currency = import.meta.env.VITE_CURRENCY
+  const navigate = useNavigate() 
 
   const {getToken} = useAuth()
   const {user} = useUser()
 
-  const [allCourses, setAllCourses] = useState([]);
-  const [isEducator, setIsEducator] = useState(true);
-  const [enrolledCourses, setEnrolledCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([])
+  const [isEducator, setIsEducator] = useState(true)
+  const [enrolledCourses, setEnrolledCourses] = useState([])
 
   // Fetch All Courses
   const fetchAllCourses = async () => {
-    setAllCourses(dummyCourses);
-  };
+    setAllCourses(dummyCourses)
+  }
 
   // Functions to calculate average rating of course
   const calculateRating = (course) => {
@@ -29,10 +29,10 @@ export const AppContextProvider = (props) => {
     }
     let totalRating = 0;
     course.courseRatings.forEach((rating) => {
-      totalRating += rating.rating;
-    });
+      totalRating += rating.rating
+    })
     return totalRating / course.courseRatings.length;
-  };
+  } 
 
 
   // Function to Calculate Course Chapter Time
@@ -68,9 +68,9 @@ export const AppContextProvider = (props) => {
   }
 
 useEffect(() => {
-  fetchAllCourses();
-  fetchUserEnrolledCourses();
-}, []);
+  fetchAllCourses()
+  fetchUserEnrolledCourses()
+}, [])
 
   const logTaken = async () => {
     console.log(await getToken());
@@ -80,7 +80,7 @@ useEffect(() =>{
   if (user){
     logTaken()
   }
-},[user]);
+},[user])
 
   const value = {
     currency,
