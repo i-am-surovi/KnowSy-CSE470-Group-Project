@@ -5,26 +5,26 @@ import User from "../models/User.js";
 
 export const clerkWebhooks = async (req, res) => {
   try {
-    const whook = new Webhooks(process.env.CLERK_WEBHOOKS_SECRET);
+    const whook = new Webhooks(process.env.CLERK_WEBHOOKS_SECRET)
 
     await whook.verify(JSON.stringify(req.body), {
-      svix_id: req.headers["svix-id"],
-      svix_timestamp: req.headers["svix-timestamp"],
-      svix_signature: req.headers["svix-signature"],
+      "svix_id": req.headers["svix-id"],
+      "svix_timestamp": req.headers["svix-timestamp"],
+      "svix_signature": req.headers["svix-signature"],
     });
 
-    const { data, type } = req.body;
+    const { data, type } = req.body
 
-    switch (key) {
+    switch (type) {
       case "user.created": {
         const userData = {
           _id: data.id,
           email: data.email_address[0].email_address,
           name: data.first_name + " " + data.last_name,
           imageUrl: data.image_url,
-        };
+        } 
         await User.create(userData);
-        res.json({});
+        res.json({})
         break;
       }
 
@@ -35,13 +35,13 @@ export const clerkWebhooks = async (req, res) => {
           imageUrl: data.image_url,
         };
         await User.findByIdAndUpdate(data.id, userData);
-        res.json({});
+        res.json({})
         break;
       }
 
       case "user.deleted": {
         await User.findByIdAndDelete(data.id);
-        res.json({});
+        res.json({})
         break;
       }
 
@@ -49,6 +49,6 @@ export const clerkWebhooks = async (req, res) => {
         break;
     }
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    res.json({ success: false, message: error.message })
   }
-};
+}
