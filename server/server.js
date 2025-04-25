@@ -14,7 +14,7 @@ await connectDB()
 
 // Middlewares
 app.use(cors())
-app.use(clerkMiddleware())
+app.use(clerkMiddleware()) 
 
 // Routes
 app.get('/', (req, res)=> res.send("API Working"))
