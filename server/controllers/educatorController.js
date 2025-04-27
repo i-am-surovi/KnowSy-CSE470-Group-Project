@@ -42,4 +42,11 @@ export const addCourse = async (req, res) => {
   } catch (error) {
       res.json({success: false, message: error.message})
   }
-};
+}
+
+//get educator courses
+export const getEducatorCourses = async (req, res) =>{
+  try{
+
+  } catch (error)
+}
