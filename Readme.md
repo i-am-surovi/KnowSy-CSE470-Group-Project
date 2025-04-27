@@ -71,7 +71,7 @@
 
 # In Case of facing problem       
 - git remote -v    
-- git fetch origin      
+- git fetch origin       
 - git checkout main     
 - git reset --hard origin/main
 
