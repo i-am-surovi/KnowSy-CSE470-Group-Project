@@ -1,6 +1,8 @@
 import { Webhook } from "svix";
 import User from "../models/User.js";
 import Stripe from "stripe";
+import {Purchase} from "../models/Purchase.js";
+import Course from "../models/Course.js";
 
 
 // Api Controller Function to Manage Clerk User with database
@@ -95,14 +97,24 @@ export const stripeWebhooks= async()=>{
       break;
     }
 
-    
 
 
 
-    case 'payment_method.attached':
-      const paymentMethod = event.data.object;
-      console.log('PaymentMethod was attached to a Customer!');
+
+    case 'payment_intent.payment_failed':{
+      const paymentIntent = event.data.object;
+      const paymentIntentId=paymentIntent.id
+
+      const session= await stripeInstance.checkoout.sessons.list({
+        payment_intent: paymentIntentId
+      })
+
+      const {purchaseId}= session.data[0].metadata;
+      const purchaseData = await Purchase.findbyId(purchaseId)
+      purchaseData.status='failed'
+      await purchaseData.save()
       break;
+    }
     // ... handle other event types
     default:
       console.log(`Unhandled event type ${event.type}`);
