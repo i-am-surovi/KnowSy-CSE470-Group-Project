@@ -49,7 +49,7 @@ const CourseDetails = () => {
       if(isAlreadyEnrolled){
         return toast.warn('Already Enrolled')
       }
-      const token =await GetScrollRestorationKeyFunction();
+      const token =await getToken();
 
       console.log("courseData:", courseData);
       console.log("courseData._id:", courseData?._id);
@@ -69,7 +69,7 @@ const CourseDetails = () => {
       }
     
     } catch(error){
-       toast.error(data.message)
+       toast.error(error.message)
     }
 }
 
@@ -274,7 +274,7 @@ const CourseDetails = () => {
 
             </div>
 
-            <button className='md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium'>{isAlreadyEnrolled ? 'Already Enrolled' : 'Enroll Now'}</button>
+            <button onClick={enrollCourse} className='md:mt-6 mt-4 w-full py-3 rounded bg-blue-600 text-white font-medium'>{isAlreadyEnrolled ? 'Already Enrolled' : 'Enroll Now'}</button>
             <div className='pt-6'>
               <p className='md:text-xl text-lg font-medium text-gray-800'>What's in the course?</p>
               <ul className='ml-4 pt-2 text-sm md:text-default list-disc text-gray-500'>
