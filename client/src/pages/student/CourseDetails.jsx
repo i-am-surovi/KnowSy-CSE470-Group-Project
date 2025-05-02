@@ -6,12 +6,14 @@ import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import Footer from '../../components/student/Footer';
 import YouTube from 'react-youtube';
+import axios from 'axios';
+import {toast} from 'react-toastify';
 
 const CourseDetails = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
   const [openSections, setOpenSections] = useState({});
-  const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(true);
+  const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
 
 
@@ -22,13 +24,54 @@ const CourseDetails = () => {
     calculateNoOfLectures,
     calculateChapterTime,
     calculateCourseDuration,
-    currency,
+    currency, backendUrl, userData
   } = useContext(AppContext);
 
   const fetchCourseData = async () => {
-    const findCourse = allCourses.find((course) => course._id === id);
-    setCourseData(findCourse);
+    try{
+      const{data}= await axios.get(backendUrl+ '/api/cpurse/'+ id)
+
+      if(data.success){
+        setCourseData(data.courseData)
+      }else(
+        toast.error(data.message)
+      )
+    }catch(error){
+      toast.error(data.message)
+    }
   };
+
+  const enrollCourse=async ()=>{
+    try{
+      if(!userData){
+        return toast.warn('Login to Enroll')
+      }
+      if(isAlreadyEnrolled){
+        return toast.warn('Already Enrolled')
+      }
+      const token =await GetScrollRestorationKeyFunction();
+
+      console.log("courseData:", courseData);
+      console.log("courseData._id:", courseData?._id);
+
+      if (!courseData||!courseData._id){
+        toast.error("Course ID is missing")
+        return;
+      }
+
+      const {data}=await axios.post(backendUrl+ '/api/user/purchase', {courseId:courseData._id},{headers: {Authorization: `Bearer ${token}`}})
+      if(data.success){
+        const {success_url}=data;
+        console.log("Redirecting to success_url", success_url);
+        window.location.replace(success_url);
+      }else{
+        toast.error(data.message)
+      }
+    
+    } catch(error){
+       toast.error(data.message)
+    }
+}
 
   useEffect(() => {
     fetchCourseData();
@@ -86,7 +129,7 @@ const CourseDetails = () => {
           </div>
 
           <p className="text-sm">
-            Course by <span className="text-blue-600 underline">Knowsy</span>
+            Course by <span className="text-blue-600 underline">{courseData.educator.name}</span>
           </p>
 
           <div className="pt-8 text-gray-800">
