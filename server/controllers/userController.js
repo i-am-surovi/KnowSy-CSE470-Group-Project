@@ -93,4 +93,3 @@ export const purchaseCourse = async ()=>{
         res.json({success: false, message: error.message});    
     }
 }
-
