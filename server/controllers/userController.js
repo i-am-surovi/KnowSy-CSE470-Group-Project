@@ -167,6 +167,9 @@ export const addUserRating= async(req, res)=>{
           if(existingRatingIndex>-1 ){
               course.courseRatings[existingRatingIndex].rating=rating
             }
+          else{
+            course.courseRatings[existingRatingIndex].rating=rating;
+          }
         await course.save();
 
         return res.json({success:true, message: 'Thank you. Your rating was added.'})
