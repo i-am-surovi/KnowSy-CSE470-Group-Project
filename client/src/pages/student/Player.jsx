@@ -19,6 +19,9 @@ const Player = () => {
     enrolledCourses.map((course) => {
       if (course._id === courseId) {
         setCourseData(course);
+        course,courseRatings.map(()=>{
+          
+        })
       }
     });
   };
