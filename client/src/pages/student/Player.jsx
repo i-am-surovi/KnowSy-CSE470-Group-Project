@@ -19,8 +19,10 @@ const Player = () => {
     enrolledCourses.map((course) => {
       if (course._id === courseId) {
         setCourseData(course);
-        course,courseRatings.map(()=>{
-          
+        course,courseRatings.map((item)=>{
+         if(item.userId===useRouteLoaderData._id){
+          setInitialRating(item.rating)
+         }
         })
       }
     });
@@ -31,8 +33,28 @@ const Player = () => {
   };
 
   useEffect(() => {
-    getCourseData();
+    if (enrolledCourses.length>0){
+    getCourseData()
+    }
   }, [enrolledCourses]);
+
+  const markLectureAsCompleted=async()=>{
+    try{
+      const token=await GetScrollRestorationKeyFunction()
+      const {data}= await axios.post(backendUrl+ '/api/user/update-course-progress', {courseId,lectureId}, {headers:{Authorization:`Bearer ${token}`}})
+
+      if (data.success){
+        toast.success(data.message)
+      }else{
+        toast.error(data.message)
+      }
+    } catch(error){
+
+      toast.error(error.message)
+    }
+  }
+
+  
 
   return (
     <>
