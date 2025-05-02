@@ -39,7 +39,7 @@ const MyEnrollments = () => {
     if(enrolledCourses.length>0){
       getCourseProgress()
     }
-  },[userData])
+  },[enrolledCourses])
 
 
   return (
