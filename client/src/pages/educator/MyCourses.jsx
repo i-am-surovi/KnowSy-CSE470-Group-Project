@@ -3,6 +3,9 @@ import { useContext } from 'react'
 import { AppContext } from '../../context/AppContext'
 import { useState } from 'react'
 import Loading from '../../components/student/Loading'
+import axios from 'axios';
+import {toast} from 'react-toastify';
+//import { AppContext } from "../../context/AppContext";
 
 const MyCourses = () => {
 
