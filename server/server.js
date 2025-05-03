@@ -10,7 +10,7 @@ import courseRouter from './routes/courseRoute.js'
 import userRouter from './routes/userRoutes.js'
 import newsletterRouter from './routes/newsletterRoutes.js'
 
-
+ 
 
 // Initialize Express
 const app = express()
