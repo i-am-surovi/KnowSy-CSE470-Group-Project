@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
-import { useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { useState } from "react";
 import Loading from "../../components/student/Loading";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const MyCourses = () => {
   const { currency, backendUrl, isEducator, getToken } = useContext(AppContext);
-
   const [courses, setCourses] = useState(null);
 
   const fetchEducatorCourses = async () => {
@@ -21,6 +18,29 @@ const MyCourses = () => {
       data.success && setCourses(data.courses);
     } catch (error) {
       toast.error(error.message);
+    }
+  };
+
+  const deleteCourse = async (courseId) => {
+    if (!window.confirm("Are you sure you want to delete this course?")) return;
+
+    try {
+      const token = await getToken();
+      const { data } = await axios.delete(
+        `${backendUrl}/api/educator/course/${courseId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (data.success) {
+        toast.success("Course deleted successfully!");
+        setCourses((prev) => prev.filter((course) => course._id !== courseId));
+      } else {
+        toast.error("Failed to delete course.");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
     }
   };
 
@@ -38,14 +58,11 @@ const MyCourses = () => {
           <table className="md:table-auto table-fixed w-full overflow-hidden">
             <thead className="text-gray-900 border-b border-gray-500/20 text-sm text-left">
               <tr>
-                <th className="px-4 py-3 font-semibold truncate">
-                  All Courses
-                </th>
+                <th className="px-4 py-3 font-semibold truncate">All Courses</th>
                 <th className="px-4 py-3 font-semibold truncate">Earnings</th>
                 <th className="px-4 py-3 font-semibold truncate">Students</th>
-                <th className="px-4 py-3 font-semibold truncate">
-                  Published On
-                </th>
+                <th className="px-4 py-3 font-semibold truncate">Published On</th>
+                <th className="px-4 py-3 font-semibold truncate">Actions</th>
               </tr>
             </thead>
             <tbody className="text-sm text-gray-500">
@@ -74,6 +91,14 @@ const MyCourses = () => {
                   </td>
                   <td className="px-4 py-3">
                     {new Date(course.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-3">
+                    <button
+                      onClick={() => deleteCourse(course._id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}

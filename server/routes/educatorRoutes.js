@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addCourse,
+  deleteCourse,
   educatorDashboardData,
   getEducatorCourses,
   getEnrolledStudentsData,
@@ -26,5 +27,7 @@ educatorRouter.get(
   protectEducator,
   getEnrolledStudentsData
 );
+
+educatorRouter.delete("/course/:id", protectEducator, deleteCourse);
 
 export default educatorRouter;

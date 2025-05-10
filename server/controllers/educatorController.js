@@ -132,3 +132,30 @@ export const getEnrolledStudentsData = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+// Delete a course
+export const deleteCourse = async (req, res) => {
+  try {
+    const courseId = req.params.id;
+    const educatorId = req.auth.userId;
+
+    const course = await Course.findById(courseId);
+
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
+    // Optional: check if the course belongs to the logged-in educator
+    if (course.educator.toString() !== educatorId.toString()) {
+      return res.status(403).json({ success: false, message: "Unauthorized to delete this course" });
+    }
+    // Delete course thumbnail from Cloudinary (if applicable)
+    const publicId = course.courseThumbnail?.split("/")?.pop()?.split(".")[0];
+    if (publicId) {
+      await cloudinary.uploader.destroy(`your_cloudinary_folder/${publicId}`);
+    }
+    await course.deleteOne();
+    res.status(200).json({ success: true, message: "Course deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
