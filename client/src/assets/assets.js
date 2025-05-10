@@ -124,7 +124,7 @@ export const dummyTestimonial = [
   },
   {
     name: "Carlos Nguyen",
-    role: "Software Engineer @ University of Toronto",
+    role: "Software Engineer @ Toronto",
     image: assets.profile_img_2,
     rating: 4.5,
     feedback:

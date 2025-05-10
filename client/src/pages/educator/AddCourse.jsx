@@ -26,6 +26,8 @@ const AddCourse = () => {
     isPreviewFree: false,
   });
 
+  
+
   const handleChapter = (action, chapterId) => {
     if (action === "add") {
       const title = prompt("Enter Chapter Name: ");
@@ -103,6 +105,12 @@ const AddCourse = () => {
       if (!image) return toast.error("Thumbnail Not Selected");
       if (!quillRef.current || !quillRef.current.root.innerHTML.trim())
         return toast.error("Course description is required");
+      
+      const totalLectures = chapters.reduce((count, chapter) => count + chapter.chapterContent.length, 0);
+      if (totalLectures === 0) {
+        return toast.error("You need at least one lecture to publish a course");
+      }
+
 
       const courseData = {
         courseTitle,
