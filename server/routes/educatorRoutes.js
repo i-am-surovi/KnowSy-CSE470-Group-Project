@@ -5,6 +5,8 @@ import {
   educatorDashboardData,
   getEducatorCourses,
   getEnrolledStudentsData,
+  getSingleCourse,
+  updateCourse,
   updateRoleToEducator,
 } from "../controllers/educatorController.js";
 import upload from "../configs/multer.js";
@@ -29,5 +31,13 @@ educatorRouter.get(
 );
 
 educatorRouter.delete("/course/:id", protectEducator, deleteCourse);
+educatorRouter.get("/course/:id", protectEducator, getSingleCourse);
+
+educatorRouter.put(
+  "/course/:id",
+  protectEducator,
+  upload.single("image"),
+  updateCourse
+);
 
 export default educatorRouter;

@@ -159,3 +159,55 @@ export const deleteCourse = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
+export const getSingleCourse = async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.id);
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
+    res.status(200).json({ success: true, course });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+
+// Update Course
+export const updateCourse = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { courseData } = req.body;  // Assuming courseData is a JSON object containing updated course data
+    const imageFile = req.file; // Optional: handle image upload for course thumbnail
+
+    // Find the course by ID
+    const course = await Course.findById(id);
+    if (!course) {
+      return res.status(404).json({ success: false, message: "Course not found" });
+    }
+
+    // Ensure the logged-in educator is the owner of the course
+    const educatorId = req.auth.userId;
+    if (course.educator.toString() !== educatorId.toString()) {
+      return res.status(403).json({ success: false, message: "Unauthorized to update this course" });
+    }
+
+    // Update course data
+    const parsedCourseData = JSON.parse(courseData);
+
+    // If an image is uploaded, handle Cloudinary upload
+    if (imageFile) {
+      const cloudinaryResponse = await cloudinary.uploader.upload(imageFile.path);
+      parsedCourseData.courseThumbnail = cloudinaryResponse.secure_url;
+    }
+
+    // Update the course with new data
+    Object.assign(course, parsedCourseData);
+    await course.save();
+
+    res.status(200).json({ success: true, message: "Course updated successfully", course });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};

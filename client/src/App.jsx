@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import AboutUs from "./pages/student/AboutUs";
 import ContactUs from "./pages/student/ContactUs";
 import PrivacyPolicy from "./pages/student/PrivacyPolicy";
+import EditCourse from "./pages/educator/EditCourse";
 
 const App = () => {
   const isEducatorRoute = useMatch("/educator/*");
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="/educator" element={<Dashboard />} />
           <Route path="add-course" element={<AddCourse />} />
+          <Route path="edit-course/:courseId" element={<EditCourse />} />
           <Route path="my-courses" element={<MyCourses />} />
           <Route path="student-enrolled" element={<StudentsEnrolled />} />
         </Route>
