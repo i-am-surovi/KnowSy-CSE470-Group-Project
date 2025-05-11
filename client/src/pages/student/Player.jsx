@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { useParams } from "react-router-dom";
 import { assets } from "../../assets/assets";
@@ -10,6 +9,7 @@ import Rating from "../../components/student/Rating";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Loading from "../../components/student/Loading";
+import confetti from "canvas-confetti";
 
 const Player = () => {
   const {
@@ -20,7 +20,9 @@ const Player = () => {
     backendUrl,
     getToken,
   } = useContext(AppContext);
+
   const { courseId } = useParams();
+
   const [courseData, setCourseData] = useState(null);
   const [openSections, setOpenSections] = useState({});
   const [playerData, setPlayerData] = useState(null);
@@ -112,10 +114,32 @@ const Player = () => {
     getCourseProgress();
   }, []);
 
+  // 🎉 Show confetti if course is completed
+  useEffect(() => {
+    if (courseData && progressData) {
+      const totalLectures = courseData.courseContent.reduce(
+        (acc, chapter) => acc + chapter.chapterContent.length,
+        0
+      );
+
+      const completedLectures = progressData.lectureCompleted.length;
+
+      if (totalLectures > 0 && completedLectures === totalLectures) {
+        confetti({
+          particleCount: 150,
+          spread: 100,
+          origin: { y: 0.6 },
+        });
+
+        toast.success("🎉 Congratulations! You finished the course. Keep learning!");
+      }
+    }
+  }, [courseData, progressData]);
+
   return courseData ? (
     <>
       <div className="p-4 sm:p-10 flex flex-col-reverse md:grid md:grid-cols-2 gap-10 md:px-36">
-        {/* left column */}
+        {/* Left Column */}
         <div className="text-gray-800">
           <h2 className="text-xl font-semibold">Course Structure</h2>
 
@@ -143,8 +167,8 @@ const Player = () => {
                       </p>
                     </div>
                     <p className="text-sm md:text-default">
-                      {chapter.chapterContent.length + " "}
-                      lectures - {calculateChapterTime(chapter)}
+                      {chapter.chapterContent.length} lectures -{" "}
+                      {calculateChapterTime(chapter)}
                     </p>
                   </div>
 
@@ -207,7 +231,7 @@ const Player = () => {
           </div>
         </div>
 
-        {/* right column */}
+        {/* Right Column */}
         <div className="md:mt-10">
           {playerData ? (
             <div>
